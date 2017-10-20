@@ -1,3 +1,5 @@
 /.vs/
+/packages/
 /umbShop/bin/
 /umbShop/obj/
+/umbShop/App_Data/NuGetBackup/
