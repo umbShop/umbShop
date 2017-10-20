@@ -6,5 +6,9 @@
 /website/App_Data/NuGetBackup/
 /website/bin/
 /website/obj/
+/website/App_Data/TEMP/
+/website/App_Data/umbraco.config
+/website/App_Data/Umbraco.sdf
+/website/App_Data/Logs/
 *.dll
 *.pdb
