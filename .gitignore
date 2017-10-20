@@ -3,3 +3,8 @@
 /umbShop/bin/
 /umbShop/obj/
 /umbShop/App_Data/NuGetBackup/
+/website/App_Data/NuGetBackup/
+/website/bin/
+/website/obj/
+*.dll
+*.pdb
