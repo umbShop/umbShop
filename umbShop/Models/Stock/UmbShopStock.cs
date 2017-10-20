@@ -29,25 +29,13 @@ namespace umbShop.Models.Stock
         [JsonProperty("uniqueId")]
         public string UniqueId { get; set; }
 
-        [Column("ProductId")]
-        [JsonProperty("productId")]
-        public int ProductId { get; set; }
-
         [Column("ProductUniqueId")]
         [JsonProperty("productUniqueId")]
         public string ProductUniqueId { get; set; }
 
-        [Column("VariantId")]
-        [JsonProperty("variantId")]
-        public int VariantId { get; set; }
-
         [Column("VariantUniqueId")]
         [JsonProperty("variantUniqueId")]
         public string VariantUniqueId { get; set; }
-
-        [Column("BasketId")]
-        [JsonProperty("basketId")]
-        public int BasketId { get; set; }
 
         [Column("BasketUniqueId")]
         [JsonProperty("basketUniqueId")]

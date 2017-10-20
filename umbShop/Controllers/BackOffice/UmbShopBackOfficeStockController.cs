@@ -19,6 +19,14 @@ namespace umbShop.Controllers.BackOffice
         }
 
         [HttpGet]
+        public object RemoveProductsFromStock(string productId, string variantId, string count)
+        {
+            UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
+            string output = umbShopStockRepository.RemoveProductsFromStock(productId, variantId, count);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(output));
+        }
+
+        [HttpGet]
         public object CountProductsInStock(string productId, string variantId)
         {
             UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();

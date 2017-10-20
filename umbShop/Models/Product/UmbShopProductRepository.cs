@@ -11,18 +11,11 @@ namespace umbShop.Models.Product
         {
             IPublishedContent content = null;
 
-            int idInt = 0;
-            int.TryParse(id, out idInt);
-            if (idInt != 0)
+            Guid uniqueId = Guid.Empty;
+            Guid.TryParse(id, out uniqueId);
+            if (uniqueId != Guid.Empty)
             {
-                content = UmbracoContext.Current.ContentCache.GetById(idInt);
-            }
-
-            Guid idGuid = Guid.Empty;
-            Guid.TryParse(id, out idGuid);
-            if (idGuid != Guid.Empty)
-            {
-                content = UmbracoContext.Current.ContentCache.GetById(idGuid);
+                content = UmbracoContext.Current.ContentCache.GetById(uniqueId);
             }
 
             if (content != null)

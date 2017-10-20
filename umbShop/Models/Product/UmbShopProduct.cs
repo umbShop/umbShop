@@ -13,8 +13,8 @@ namespace umbShop.Models.Product
         [JsonProperty("id")]
         public int Id { get; private set; }
 
-        [JsonProperty("udi")]
-        public Guid Udi { get; private set; }
+        [JsonProperty("uniqueId")]
+        public Guid UniqueId { get; private set; }
 
         [JsonProperty("name")]
         public string Name { get; private set; }
@@ -28,7 +28,7 @@ namespace umbShop.Models.Product
 
         public UmbShopProduct(IPublishedContent content) {
             Id = content.Id;
-            Udi = content.GetKey();
+            UniqueId = content.GetKey();
             Name = content.Name;
             Url = content.Url;
         }
