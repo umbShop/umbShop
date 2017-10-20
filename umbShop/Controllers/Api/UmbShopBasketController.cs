@@ -11,10 +11,10 @@ namespace umbShop.Controllers.Api
     {
 
         [HttpGet]
-        public object AddProductsToBasket(string productId, string variantId, string count)
+        public object AddProductsToBasket(string basketId, string productId, string variantId, string count)
         {
             UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
-            bool approved = umbShopBasketRepository.AddProductsToBasket(productId, variantId, count);
+            bool approved = umbShopBasketRepository.AddProductsToBasket(basketId, productId, variantId, count);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
