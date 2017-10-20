@@ -49,11 +49,18 @@ namespace umbShop.Models.Basket
             int countInt = 0;
             int.TryParse(count, out countInt);
 
-            for (int i = 1; i <= countInt; i++)
+            try
             {
-                UmbShopStock stock = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP 1 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = '';", productUniqueId, variantUniqueId).FirstOrDefault();
-                stock.BasketUniqueId = basketUniqueId.ToString();
-                databaseContext.Database.Update(stock);
+                for (int i = 1; i <= countInt; i++)
+                {
+                    UmbShopStock stock = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP 1 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = '';", productUniqueId, variantUniqueId).FirstOrDefault();
+                    stock.BasketUniqueId = basketUniqueId.ToString();
+                    databaseContext.Database.Update(stock);
+                }
+            }
+            catch
+            {
+                return false;
             }
 
             return true;
@@ -81,11 +88,18 @@ namespace umbShop.Models.Basket
             int countInt = 0;
             int.TryParse(count, out countInt);
 
-            for (int i = 1; i <= countInt; i++)
+            try
             {
-                UmbShopStock stock = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP 1 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = @2;", productUniqueId, variantUniqueId, basketUniqueId).FirstOrDefault();
-                stock.BasketUniqueId = "";
-                databaseContext.Database.Update(stock);
+                for (int i = 1; i <= countInt; i++)
+                {
+                    UmbShopStock stock = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP 1 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = @2;", productUniqueId, variantUniqueId, basketUniqueId).FirstOrDefault();
+                    stock.BasketUniqueId = "";
+                    databaseContext.Database.Update(stock);
+                }
+            }
+            catch
+            {
+                return false;
             }
 
             return true;

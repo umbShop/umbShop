@@ -14,16 +14,16 @@ namespace umbShop.Controllers.BackOffice
         public object AddProductsToStock(string productId, string variantId, string count)
         {
             UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
-            string output = umbShopStockRepository.AddProductsToStock(productId, variantId, count);
-            return Request.CreateResponse(JsonMetaResponse.GetSuccess(output));
+            bool approved = umbShopStockRepository.AddProductsToStock(productId, variantId, count);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
         [HttpGet]
         public object RemoveProductsFromStock(string productId, string variantId, string count)
         {
             UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
-            string output = umbShopStockRepository.RemoveProductsFromStock(productId, variantId, count);
-            return Request.CreateResponse(JsonMetaResponse.GetSuccess(output));
+            bool approved = umbShopStockRepository.RemoveProductsFromStock(productId, variantId, count);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
         [HttpGet]
