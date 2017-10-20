@@ -7,7 +7,7 @@ namespace umbShop.Models.Product
     public class UmbShopProductRepository
     {
 
-        public UmbShopProduct GetProductById(string id)
+        public UmbShopProduct GetProduct(string id)
         {
             IPublishedContent content = null;
 
@@ -29,7 +29,7 @@ namespace umbShop.Models.Product
             return null;
         }
 
-        //public UmbShopProduct[] GetProductListById(string id)
+        //public UmbShopProduct[] GetProductList(string id)
         //{
         //    return null;
         //}

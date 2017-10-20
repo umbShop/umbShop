@@ -215,6 +215,7 @@
     <Compile Include="Controllers\Api\UmbShopProductController.cs" />
     <Compile Include="Controllers\Api\UmbShopStockController.cs" />
     <Compile Include="Controllers\BackOffice\UmbShopBackOfficeStockController.cs" />
+    <Compile Include="Models\Basket\UmbShopBasket.cs" />
     <Compile Include="Models\Basket\UmbShopBasketRepository.cs" />
     <Compile Include="Models\Product\UmbShopProduct.cs" />
     <Compile Include="Models\Product\UmbShopProductList.cs" />

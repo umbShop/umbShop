@@ -9,6 +9,24 @@ namespace umbShop.Models.Basket
     public class UmbShopBasketRepository
     {
 
+        public UmbShopStock[] GetBasketContent(string basketId)
+        {
+            var databaseContext = ApplicationContext.Current.DatabaseContext;
+            var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
+
+            if (!db.TableExist(UmbShopStock.TableName))
+            {
+                db.CreateTable<UmbShopStock>(false);
+            }
+
+            Guid basketUniqueId = Guid.Empty;
+            Guid.TryParse(basketId, out basketUniqueId);
+
+            UmbShopStock[] stockList = databaseContext.Database.Fetch<UmbShopStock>("SELECT * FROM " + UmbShopStock.TableName + " WHERE BasketUniqueId = @0;", basketUniqueId).ToArray();
+
+            return stockList;
+        }
+
         public bool AddProductsToBasket(string basketId, string productId, string variantId, string count)
         {
             var databaseContext = ApplicationContext.Current.DatabaseContext;

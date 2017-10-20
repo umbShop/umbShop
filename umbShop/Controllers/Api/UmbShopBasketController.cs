@@ -3,12 +3,21 @@ using Skybrud.WebApi.Json.Meta;
 using System.Web.Http;
 using Umbraco.Web.WebApi;
 using umbShop.Models.Basket;
+using umbShop.Models.Stock;
 
 namespace umbShop.Controllers.Api
 {
     [JsonOnlyConfiguration]
     public class UmbShopBasketController : UmbracoApiController
     {
+
+        [HttpGet]
+        public object GetBasketContent(string basketId)
+        {
+            UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
+            UmbShopStock[] umbShopBasketContent = umbShopBasketRepository.GetBasketContent(basketId);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(umbShopBasketContent));
+        }
 
         [HttpGet]
         public object AddProductsToBasket(string basketId, string productId, string variantId, string count)

@@ -11,18 +11,18 @@ namespace umbShop.Controllers.Api
     {
 
         [HttpGet]
-        public object GetProductById(string id)
+        public object GetProduct(string id)
         {
             UmbShopProductRepository umbShopProductRepository = new UmbShopProductRepository();
-            UmbShopProduct product = umbShopProductRepository.GetProductById(id);
+            UmbShopProduct product = umbShopProductRepository.GetProduct(id);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(product));
         }
 
         //[HttpGet]
-        //public object GetProductListById(string id)
+        //public object GetProductList(string id)
         //{
         //    UmbShopRepository umbShopRepository = new UmbShopRepository();
-        //    UmbShopProduct[] productList = umbShopRepository.GetProductListById(id);
+        //    UmbShopProduct[] productList = umbShopRepository.GetProductList(id);
         //    return Request.CreateResponse(JsonMetaResponse.GetSuccess(productList));
         //}
 
