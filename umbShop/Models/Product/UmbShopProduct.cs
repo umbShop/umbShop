@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System;
 using Umbraco.Core.Models;
+using Umbraco.Web;
 
 namespace umbShop.Models.Product
 {
@@ -11,8 +13,14 @@ namespace umbShop.Models.Product
         [JsonProperty("id")]
         public int Id { get; private set; }
 
+        [JsonProperty("udi")]
+        public Guid Udi { get; private set; }
+
         [JsonProperty("name")]
         public string Name { get; private set; }
+
+        [JsonProperty("url")]
+        public string Url { get; private set; }
 
         #endregion
 
@@ -20,7 +28,9 @@ namespace umbShop.Models.Product
 
         public UmbShopProduct(IPublishedContent content) {
             Id = content.Id;
+            Udi = content.GetKey();
             Name = content.Name;
+            Url = content.Url;
         }
 
         #endregion
