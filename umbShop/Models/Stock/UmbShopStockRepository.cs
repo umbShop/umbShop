@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Umbraco.Core;
 using Umbraco.Core.Persistence;
 
@@ -62,13 +63,11 @@ namespace umbShop.Models.Stock
             int countInt = 0;
             int.TryParse(count, out countInt);
 
-            List<UmbShopStock> stocks = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP @2 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = '';", productUniqueId, variantUniqueId, count);
-
-            databaseContext.Database.Delete<UmbShopStock>(stocks);
-
-            //for (int i = 1; i <= countInt; i++)
-            //{
-            //}
+            for (int i = 1; i <= countInt; i++)
+            {
+                UmbShopStock stock = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP 1 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = '';", productUniqueId, variantUniqueId).FirstOrDefault();
+                databaseContext.Database.Delete<UmbShopStock>(stock);
+            }
 
             return "done";
         }
