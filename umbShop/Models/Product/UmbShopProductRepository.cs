@@ -4,7 +4,7 @@ using Umbraco.Web;
 
 namespace umbShop.Models.Product
 {
-    public class UmbShopRepository
+    public class UmbShopProductRepository
     {
 
         public UmbShopProduct GetProductById(string id)

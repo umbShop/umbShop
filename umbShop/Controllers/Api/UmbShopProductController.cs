@@ -13,8 +13,8 @@ namespace umbShop.Controllers.Api
         [HttpGet]
         public object GetProductById(string id)
         {
-            UmbShopRepository umbShopRepository = new UmbShopRepository();
-            UmbShopProduct product = umbShopRepository.GetProductById(id);
+            UmbShopProductRepository umbShopProductRepository = new UmbShopProductRepository();
+            UmbShopProduct product = umbShopProductRepository.GetProductById(id);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(product));
         }
 

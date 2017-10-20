@@ -211,10 +211,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\UmbShopBasketController.cs" />
     <Compile Include="Controllers\Api\UmbShopProductController.cs" />
+    <Compile Include="Controllers\Api\UmbShopStockController.cs" />
+    <Compile Include="Controllers\BackOffice\UmbShopBackOfficeStockController.cs" />
     <Compile Include="Models\Product\UmbShopProduct.cs" />
     <Compile Include="Models\Product\UmbShopProductList.cs" />
-    <Compile Include="Models\Product\UmbShopRepository.cs" />
+    <Compile Include="Models\Product\UmbShopProductRepository.cs" />
+    <Compile Include="Models\Stock\UmbShopStock.cs" />
+    <Compile Include="Models\Stock\UmbShopStockRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -222,7 +227,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\Backoffice\" />
+    <Folder Include="Models\Basket\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
