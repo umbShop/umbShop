@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Umbraco.Core;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Persistence;
 using UmbShop.Models.Stock;
 
@@ -51,15 +52,18 @@ namespace UmbShop.Models.Basket
 
             try
             {
+                LogHelper.Info<UmbShopBasketRepository>("BEGIN AddProductsToBasket basketId:" + basketId + " productId:" + productId + " variantId:" + variantId + " count:" + count);
                 for (int i = 1; i <= countInt; i++)
                 {
                     UmbShopStock stock = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP 1 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = '';", productUniqueId, variantUniqueId).FirstOrDefault();
                     stock.BasketUniqueId = basketUniqueId.ToString();
                     databaseContext.Database.Update(stock);
                 }
+                LogHelper.Info<UmbShopBasketRepository>("END AddProductsToBasket basketId:" + basketId + " productId:" + productId + " variantId:" + variantId + " count:" + count);
             }
-            catch
+            catch (Exception exception)
             {
+                LogHelper.Info<UmbShopBasketRepository>("ERROR AddProductsToBasket " + exception.Message);
                 return false;
             }
 
@@ -90,15 +94,18 @@ namespace UmbShop.Models.Basket
 
             try
             {
+                LogHelper.Info<UmbShopBasketRepository>("BEGIN RemoveProductsFromBasket basketId:" + basketId + " productId:" + productId + " variantId:" + variantId + " count:" + count);
                 for (int i = 1; i <= countInt; i++)
                 {
                     UmbShopStock stock = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP 1 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = @2;", productUniqueId, variantUniqueId, basketUniqueId).FirstOrDefault();
                     stock.BasketUniqueId = "";
                     databaseContext.Database.Update(stock);
                 }
+                LogHelper.Info<UmbShopBasketRepository>("END RemoveProductsFromBasket basketId:" + basketId + " productId:" + productId + " variantId:" + variantId + " count:" + count);
             }
-            catch
+            catch (Exception exception)
             {
+                LogHelper.Info<UmbShopBasketRepository>("ERROR RemoveProductsFromBasket " + exception.Message);
                 return false;
             }
 

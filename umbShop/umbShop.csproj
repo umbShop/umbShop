@@ -218,8 +218,6 @@
     <Compile Include="Controllers\BackOffice\UmbShopBackOfficeStockController.cs" />
     <Compile Include="Models\Basket\UmbShopBasket.cs" />
     <Compile Include="Models\Basket\UmbShopBasketRepository.cs" />
-    <Compile Include="Models\Log\UmbShopLog.cs" />
-    <Compile Include="Models\Log\UmbShopLogRepository.cs" />
     <Compile Include="Models\Product\UmbShopProduct.cs" />
     <Compile Include="Models\Product\UmbShopProductList.cs" />
     <Compile Include="Models\Product\UmbShopProductRepository.cs" />
