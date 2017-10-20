@@ -18,5 +18,13 @@ namespace umbShop.Controllers.Api
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
+        [HttpGet]
+        public object RemoveProductsFromBasket(string basketId, string productId, string variantId, string count)
+        {
+            UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
+            bool approved = umbShopBasketRepository.RemoveProductsFromBasket(basketId, productId, variantId, count);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
+        }
+
     }
 }
