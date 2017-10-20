@@ -18,13 +18,13 @@ namespace umbShop.Controllers.Api
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(product));
         }
 
-        //[HttpGet]
-        //public object GetProductList(string id)
-        //{
-        //    UmbShopRepository umbShopRepository = new UmbShopRepository();
-        //    UmbShopProduct[] productList = umbShopRepository.GetProductList(id);
-        //    return Request.CreateResponse(JsonMetaResponse.GetSuccess(productList));
-        //}
+        [HttpGet]
+        public object GetProductList(string id)
+        {
+            UmbShopProductRepository umbShopProductRepository = new UmbShopProductRepository();
+            UmbShopProduct[] productList = umbShopProductRepository.GetProductList(id);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(productList));
+        }
 
     }
 }
