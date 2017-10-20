@@ -10,5 +10,6 @@
 /website/App_Data/umbraco.config
 /website/App_Data/Umbraco.sdf
 /website/App_Data/Logs/
+/website/App_Data/Models/
 *.dll
 *.pdb
