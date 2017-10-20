@@ -2,9 +2,9 @@
 using Skybrud.WebApi.Json.Meta;
 using System.Web.Http;
 using Umbraco.Web.WebApi;
-using umbShop.Models.Product;
+using UmbShop.Models.Product;
 
-namespace umbShop.Controllers.Api
+namespace UmbShop.Controllers.Api
 {
     [JsonOnlyConfiguration]
     public class UmbShopStockController : UmbracoApiController

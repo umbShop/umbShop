@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace umbShop.Models.Product
+namespace UmbShop.Models.Product
 {
     public class UmbShopProductList
     {

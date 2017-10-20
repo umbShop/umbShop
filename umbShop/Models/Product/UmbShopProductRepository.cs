@@ -3,7 +3,7 @@ using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace umbShop.Models.Product
+namespace UmbShop.Models.Product
 {
     public class UmbShopProductRepository
     {

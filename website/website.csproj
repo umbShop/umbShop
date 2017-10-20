@@ -328,9 +328,9 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\umbShop\umbShop.csproj">
+    <ProjectReference Include="..\umbShop\UmbShop.csproj">
       <Project>{2eda0092-d84e-4b26-80fb-b866fc8cd4be}</Project>
-      <Name>umbShop</Name>
+      <Name>UmbShop</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

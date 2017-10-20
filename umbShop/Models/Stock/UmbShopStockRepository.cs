@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Core;
 using Umbraco.Core.Persistence;
 
-namespace umbShop.Models.Stock
+namespace UmbShop.Models.Stock
 {
     public class UmbShopStockRepository
     {

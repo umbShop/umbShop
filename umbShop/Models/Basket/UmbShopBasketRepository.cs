@@ -2,9 +2,9 @@
 using System.Linq;
 using Umbraco.Core;
 using Umbraco.Core.Persistence;
-using umbShop.Models.Stock;
+using UmbShop.Models.Stock;
 
-namespace umbShop.Models.Basket
+namespace UmbShop.Models.Basket
 {
     public class UmbShopBasketRepository
     {

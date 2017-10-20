@@ -2,7 +2,7 @@
 using Umbraco.Core.Persistence;
 using Umbraco.Core.Persistence.DatabaseAnnotations;
 
-namespace umbShop.Models.Stock
+namespace UmbShop.Models.Stock
 {
     [TableName(TableName)]
     [PrimaryKey(PrimaryKey, autoIncrement = true)]

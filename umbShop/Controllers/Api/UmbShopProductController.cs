@@ -2,9 +2,9 @@
 using Skybrud.WebApi.Json.Meta;
 using System.Web.Http;
 using Umbraco.Web.WebApi;
-using umbShop.Models.Product;
+using UmbShop.Models.Product;
 
-namespace umbShop.Controllers.Api
+namespace UmbShop.Controllers.Api
 {
     [JsonOnlyConfiguration]
     public class UmbShopProductController : UmbracoApiController
@@ -13,16 +13,16 @@ namespace umbShop.Controllers.Api
         [HttpGet]
         public object GetProduct(string id)
         {
-            UmbShopProductRepository umbShopProductRepository = new UmbShopProductRepository();
-            UmbShopProduct product = umbShopProductRepository.GetProduct(id);
+            UmbShopProductRepository UmbShopProductRepository = new UmbShopProductRepository();
+            UmbShopProduct product = UmbShopProductRepository.GetProduct(id);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(product));
         }
 
         [HttpGet]
         public object GetProductList(string id)
         {
-            UmbShopProductRepository umbShopProductRepository = new UmbShopProductRepository();
-            UmbShopProduct[] productList = umbShopProductRepository.GetProductList(id);
+            UmbShopProductRepository UmbShopProductRepository = new UmbShopProductRepository();
+            UmbShopProduct[] productList = UmbShopProductRepository.GetProductList(id);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(productList));
         }
 

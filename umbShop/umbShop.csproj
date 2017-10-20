@@ -7,8 +7,8 @@
     <ProjectGuid>{2EDA0092-D84E-4B26-80FB-B866FC8CD4BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>umbShop</RootNamespace>
-    <AssemblyName>umbShop</AssemblyName>
+    <RootNamespace>UmbShop</RootNamespace>
+    <AssemblyName>UmbShop</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -3,7 +3,7 @@ using System;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 
-namespace umbShop.Models.Product
+namespace UmbShop.Models.Product
 {
     public class UmbShopProduct
     {

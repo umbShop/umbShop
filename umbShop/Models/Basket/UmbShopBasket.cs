@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace umbShop.Models.Basket
+namespace UmbShop.Models.Basket
 {
     public class UmbShopBasket
     {

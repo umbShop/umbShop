@@ -2,9 +2,9 @@
 using Skybrud.WebApi.Json.Meta;
 using System.Web.Http;
 using Umbraco.Web.WebApi;
-using umbShop.Models.Stock;
+using UmbShop.Models.Stock;
 
-namespace umbShop.Controllers.BackOffice
+namespace UmbShop.Controllers.BackOffice
 {
     [JsonOnlyConfiguration]
     public class UmbShopBackOfficeStockController : UmbracoAuthorizedApiController
@@ -13,24 +13,24 @@ namespace umbShop.Controllers.BackOffice
         [HttpGet]
         public object AddProductsToStock(string productId, string variantId, string count)
         {
-            UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
-            bool approved = umbShopStockRepository.AddProductsToStock(productId, variantId, count);
+            UmbShopStockRepository UmbShopStockRepository = new UmbShopStockRepository();
+            bool approved = UmbShopStockRepository.AddProductsToStock(productId, variantId, count);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
         [HttpGet]
         public object RemoveProductsFromStock(string productId, string variantId, string count)
         {
-            UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
-            bool approved = umbShopStockRepository.RemoveProductsFromStock(productId, variantId, count);
+            UmbShopStockRepository UmbShopStockRepository = new UmbShopStockRepository();
+            bool approved = UmbShopStockRepository.RemoveProductsFromStock(productId, variantId, count);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
         [HttpGet]
         public object CountProductsInStock(string productId, string variantId)
         {
-            UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
-            int count = umbShopStockRepository.CountProductsInStock(productId, variantId);
+            UmbShopStockRepository UmbShopStockRepository = new UmbShopStockRepository();
+            int count = UmbShopStockRepository.CountProductsInStock(productId, variantId);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(count));
         }
 
