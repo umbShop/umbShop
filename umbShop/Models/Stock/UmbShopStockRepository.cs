@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Umbraco.Core;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Persistence;
 
 namespace UmbShop.Models.Stock
@@ -29,6 +30,7 @@ namespace UmbShop.Models.Stock
 
             try
             {
+                LogHelper.Info<UmbShopStockRepository>("BEGIN AddProductsToStock productId:" + productId + " variantId:" + variantId + " count:" + count);
                 for (int i = 1; i <= countInt; i++)
                 {
                     UmbShopStock stock = new UmbShopStock
@@ -41,9 +43,11 @@ namespace UmbShop.Models.Stock
 
                     databaseContext.Database.Insert(stock);
                 }
+                LogHelper.Info<UmbShopStockRepository>("END AddProductsToStock productId:" + productId + " variantId:" + variantId + " count:" + count);
             }
-            catch
+            catch (Exception exception)
             {
+                LogHelper.Info<UmbShopStockRepository>("ERROR AddProductsToStock " + exception.Message);
                 return false;
             }
 
@@ -71,14 +75,17 @@ namespace UmbShop.Models.Stock
 
             try
             {
+                LogHelper.Info<UmbShopStockRepository>("BEGIN RemoveProductsFromStock productId:" + productId + " variantId:" + variantId + " count:" + count);
                 for (int i = 1; i <= countInt; i++)
                 {
                     UmbShopStock stock = databaseContext.Database.Fetch<UmbShopStock>("SELECT TOP 1 * FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1 AND BasketUniqueId = '';", productUniqueId, variantUniqueId).FirstOrDefault();
                     databaseContext.Database.Delete<UmbShopStock>(stock);
                 }
+                LogHelper.Info<UmbShopStockRepository>("END RemoveProductsFromStock productId:" + productId + " variantId:" + variantId + " count:" + count);
             }
-            catch
+            catch (Exception exception)
             {
+                LogHelper.Info<UmbShopStockRepository>("ERROR RemoveProductsFromStock " + exception.Message);
                 return false;
             }
 
