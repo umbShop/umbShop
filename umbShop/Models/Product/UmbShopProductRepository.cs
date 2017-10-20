@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Configuration;
 using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -21,10 +22,11 @@ namespace UmbShop.Models.Product
 
             if (content != null)
             {
-                // Check if content is product documenttype (web.config)
-
-                UmbShopProduct product = UmbShopProduct.GetFromContent(content);
-                return product;
+                if (content.DocumentTypeAlias == WebConfigurationManager.AppSettings["UmbShop.DocType.Product"])
+                {
+                    UmbShopProduct product = UmbShopProduct.GetFromContent(content);
+                    return product;
+                }
             }
 
             return null;
@@ -43,10 +45,11 @@ namespace UmbShop.Models.Product
 
             if (content != null)
             {
-                // Check if content is product documenttype (web.config)
-
-                UmbShopProduct[] productList = content.Children.Select(UmbShopProduct.GetFromContent).ToArray();
-                return productList;
+                if (content.DocumentTypeAlias == WebConfigurationManager.AppSettings["UmbShop.DocType.ProductList"])
+                {
+                    UmbShopProduct[] productList = content.Children.Select(UmbShopProduct.GetFromContent).ToArray();
+                    return productList;
+                }
             }
 
             return null;
