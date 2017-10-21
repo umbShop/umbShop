@@ -10,6 +10,12 @@ namespace UmbShop.Models.Basket
     public class UmbShopBasketRepository
     {
 
+        public string GetBasket()
+        {
+
+            return "temp";
+        }
+
         public UmbShopStock[] GetBasketContent(string basketId)
         {
             var databaseContext = ApplicationContext.Current.DatabaseContext;

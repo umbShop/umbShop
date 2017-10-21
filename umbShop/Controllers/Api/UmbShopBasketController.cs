@@ -12,6 +12,14 @@ namespace UmbShop.Controllers.Api
     {
 
         [HttpGet]
+        public object GetBasket()
+        {
+            UmbShopBasketRepository UmbShopBasketRepository = new UmbShopBasketRepository();
+            string UmbShopBasket = UmbShopBasketRepository.GetBasket();
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(UmbShopBasket));
+        }
+
+        [HttpGet]
         public object GetBasketContent(string basketId)
         {
             UmbShopBasketRepository UmbShopBasketRepository = new UmbShopBasketRepository();
