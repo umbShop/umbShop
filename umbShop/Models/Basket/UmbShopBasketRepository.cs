@@ -195,5 +195,32 @@ namespace UmbShop.Models.Basket
             return true;
         }
 
+        public UmbShopBasket[] ClearUnusedBaskets()
+        {
+            var databaseContext = ApplicationContext.Current.DatabaseContext;
+            var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
+
+            if (!db.TableExist(UmbShopBasket.TableName))
+            {
+                db.CreateTable<UmbShopBasket>(false);
+            }
+
+            UmbShopBasket[] baskets = null;
+            try
+            {
+                LogHelper.Info<UmbShopBasketRepository>("BEGIN ClearUnusedBaskets");
+                //NOT FINISHED add minuts to web.config
+                baskets = databaseContext.Database.Fetch<UmbShopBasket>("SELECT * FROM " + UmbShopBasket.TableName + ";").ToArray();
+                LogHelper.Info<UmbShopBasketRepository>("END ClearUnusedBaskets");
+            }
+            catch (Exception exception)
+            {
+                LogHelper.Info<UmbShopBasketRepository>("ERROR ClearUnusedBaskets " + exception.Message);
+                return null;
+            }
+
+            return baskets;
+        }
+
     }
 }

@@ -51,5 +51,13 @@ namespace UmbShop.Controllers.Api
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
+        [HttpGet]
+        public object ClearUnusedBaskets()
+        {
+            UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
+            UmbShopBasket[] baskets = umbShopBasketRepository.ClearUnusedBaskets();
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(baskets));
+        }
+
     }
 }
