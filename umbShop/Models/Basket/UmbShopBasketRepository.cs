@@ -12,8 +12,40 @@ namespace UmbShop.Models.Basket
 
         public string GetBasket()
         {
+            var databaseContext = ApplicationContext.Current.DatabaseContext;
+            var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
 
-            return "temp";
+            if (!db.TableExist(UmbShopBasket.TableName))
+            {
+                db.CreateTable<UmbShopBasket>(false);
+            }
+
+            var uniqueId = Guid.NewGuid().ToString();
+            try
+            {
+                LogHelper.Info<UmbShopStockRepository>("BEGIN GetBasket");
+                while (databaseContext.Database.ExecuteScalar<int>("SELECT COUNT(*) FROM " + UmbShopStock.TableName + " WHERE UniqueId = @0;", uniqueId) > 0)
+                {
+                    uniqueId = Guid.NewGuid().ToString();
+                }
+
+                UmbShopBasket basket = new UmbShopBasket
+                {
+                    UniqueId = uniqueId,
+                    LastUsed = DateTime.Now,
+                    Status = 0
+                };
+
+                databaseContext.Database.Insert(basket);
+                LogHelper.Info<UmbShopStockRepository>("END GetBasket");
+            }
+            catch (Exception exception)
+            {
+                LogHelper.Info<UmbShopStockRepository>("ERROR GetBasket " + exception.Message);
+                return "";
+            }
+
+            return uniqueId;
         }
 
         public UmbShopStock[] GetBasketContent(string basketId)
