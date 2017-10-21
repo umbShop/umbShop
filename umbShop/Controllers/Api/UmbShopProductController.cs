@@ -13,17 +13,17 @@ namespace UmbShop.Controllers.Api
         [HttpGet]
         public object GetProduct(string id)
         {
-            UmbShopProductRepository UmbShopProductRepository = new UmbShopProductRepository();
-            UmbShopProduct product = UmbShopProductRepository.GetProduct(id);
-            return Request.CreateResponse(JsonMetaResponse.GetSuccess(product));
+            UmbShopProductRepository umbShopProductRepository = new UmbShopProductRepository();
+            UmbShopProduct umbShopProduct = umbShopProductRepository.GetProduct(id);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(umbShopProduct));
         }
 
         [HttpGet]
         public object GetProductList(string id)
         {
-            UmbShopProductRepository UmbShopProductRepository = new UmbShopProductRepository();
-            UmbShopProduct[] productList = UmbShopProductRepository.GetProductList(id);
-            return Request.CreateResponse(JsonMetaResponse.GetSuccess(productList));
+            UmbShopProductRepository umbShopProductRepository = new UmbShopProductRepository();
+            UmbShopProduct[] umbShopProductList = umbShopProductRepository.GetProductList(id);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(umbShopProductList));
         }
 
     }

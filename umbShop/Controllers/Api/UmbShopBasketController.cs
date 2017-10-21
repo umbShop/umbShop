@@ -14,32 +14,32 @@ namespace UmbShop.Controllers.Api
         [HttpGet]
         public object GetBasket()
         {
-            UmbShopBasketRepository UmbShopBasketRepository = new UmbShopBasketRepository();
-            string UmbShopBasket = UmbShopBasketRepository.GetBasket();
-            return Request.CreateResponse(JsonMetaResponse.GetSuccess(UmbShopBasket));
+            UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
+            string umbShopBasket = umbShopBasketRepository.GetBasket();
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(umbShopBasket));
         }
 
         [HttpGet]
         public object GetBasketContent(string basketId)
         {
-            UmbShopBasketRepository UmbShopBasketRepository = new UmbShopBasketRepository();
-            UmbShopStock[] UmbShopBasketContent = UmbShopBasketRepository.GetBasketContent(basketId);
-            return Request.CreateResponse(JsonMetaResponse.GetSuccess(UmbShopBasketContent));
+            UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
+            UmbShopStock[] umbShopBasketContent = umbShopBasketRepository.GetBasketContent(basketId);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(umbShopBasketContent));
         }
 
         [HttpGet]
         public object AddProductsToBasket(string basketId, string productId, string variantId, string count)
         {
-            UmbShopBasketRepository UmbShopBasketRepository = new UmbShopBasketRepository();
-            bool approved = UmbShopBasketRepository.AddProductsToBasket(basketId, productId, variantId, count);
+            UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
+            bool approved = umbShopBasketRepository.AddProductsToBasket(basketId, productId, variantId, count);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
         [HttpGet]
         public object RemoveProductsFromBasket(string basketId, string productId, string variantId, string count)
         {
-            UmbShopBasketRepository UmbShopBasketRepository = new UmbShopBasketRepository();
-            bool approved = UmbShopBasketRepository.RemoveProductsFromBasket(basketId, productId, variantId, count);
+            UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
+            bool approved = umbShopBasketRepository.RemoveProductsFromBasket(basketId, productId, variantId, count);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 

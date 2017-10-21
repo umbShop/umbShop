@@ -13,24 +13,24 @@ namespace UmbShop.Controllers.BackOffice
         [HttpGet]
         public object AddProductsToStock(string productId, string variantId, string count)
         {
-            UmbShopStockRepository UmbShopStockRepository = new UmbShopStockRepository();
-            bool approved = UmbShopStockRepository.AddProductsToStock(productId, variantId, count);
+            UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
+            bool approved = umbShopStockRepository.AddProductsToStock(productId, variantId, count);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
         [HttpGet]
         public object RemoveProductsFromStock(string productId, string variantId, string count)
         {
-            UmbShopStockRepository UmbShopStockRepository = new UmbShopStockRepository();
-            bool approved = UmbShopStockRepository.RemoveProductsFromStock(productId, variantId, count);
+            UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
+            bool approved = umbShopStockRepository.RemoveProductsFromStock(productId, variantId, count);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
         }
 
         [HttpGet]
         public object CountProductsInStock(string productId, string variantId)
         {
-            UmbShopStockRepository UmbShopStockRepository = new UmbShopStockRepository();
-            int count = UmbShopStockRepository.CountProductsInStock(productId, variantId);
+            UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
+            int count = umbShopStockRepository.CountProductsInStock(productId, variantId);
             return Request.CreateResponse(JsonMetaResponse.GetSuccess(count));
         }
 
