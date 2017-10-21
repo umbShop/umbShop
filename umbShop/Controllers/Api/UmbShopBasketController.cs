@@ -20,6 +20,14 @@ namespace UmbShop.Controllers.Api
         }
 
         [HttpGet]
+        public object KeepBasketAlive(string basketId)
+        {
+            UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();
+            bool approved = umbShopBasketRepository.KeepBasketAlive(basketId);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
+        }
+
+        [HttpGet]
         public object GetBasketContent(string basketId)
         {
             UmbShopBasketRepository umbShopBasketRepository = new UmbShopBasketRepository();

@@ -24,7 +24,7 @@ namespace UmbShop.Models.Basket
             try
             {
                 LogHelper.Info<UmbShopStockRepository>("BEGIN GetBasket");
-                while (databaseContext.Database.ExecuteScalar<int>("SELECT COUNT(*) FROM " + UmbShopStock.TableName + " WHERE UniqueId = @0;", uniqueId) > 0)
+                while (databaseContext.Database.ExecuteScalar<int>("SELECT COUNT(*) FROM " + UmbShopBasket.TableName + " WHERE UniqueId = @0;", uniqueId) > 0)
                 {
                     uniqueId = Guid.NewGuid().ToString();
                 }
@@ -48,8 +48,43 @@ namespace UmbShop.Models.Basket
             return uniqueId;
         }
 
+        public bool KeepBasketAlive(string basketId)
+        {
+            var databaseContext = ApplicationContext.Current.DatabaseContext;
+            var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
+
+            if (!db.TableExist(UmbShopBasket.TableName))
+            {
+                db.CreateTable<UmbShopBasket>(false);
+            }
+
+            Guid basketUniqueId = Guid.Empty;
+            Guid.TryParse(basketId, out basketUniqueId);
+
+            try
+            {
+                LogHelper.Info<UmbShopBasketRepository>("BEGIN KeepBasketAlive basketId:" + basketId);
+                UmbShopBasket basket = databaseContext.Database.Fetch<UmbShopBasket>("SELECT TOP 1 * FROM " + UmbShopBasket.TableName + " WHERE UniqueId = @0;", basketUniqueId).FirstOrDefault();
+                basket.LastUsed = DateTime.Now;
+                databaseContext.Database.Update(basket);
+                LogHelper.Info<UmbShopBasketRepository>("END KeepBasketAlive basketId:" + basketId);
+            }
+            catch (Exception exception)
+            {
+                LogHelper.Info<UmbShopBasketRepository>("ERROR KeepBasketAlive " + exception.Message);
+                return false;
+            }
+
+            return true;
+        }
+
         public UmbShopStock[] GetBasketContent(string basketId)
         {
+            if (!KeepBasketAlive(basketId))
+            {
+                return null;
+            }
+
             var databaseContext = ApplicationContext.Current.DatabaseContext;
             var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
 
@@ -68,6 +103,11 @@ namespace UmbShop.Models.Basket
 
         public bool AddProductsToBasket(string basketId, string productId, string variantId, string count)
         {
+            if (!KeepBasketAlive(basketId))
+            {
+                return false;
+            }
+
             var databaseContext = ApplicationContext.Current.DatabaseContext;
             var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
 
@@ -110,6 +150,11 @@ namespace UmbShop.Models.Basket
 
         public bool RemoveProductsFromBasket(string basketId, string productId, string variantId, string count)
         {
+            if (!KeepBasketAlive(basketId))
+            {
+                return false;
+            }
+
             var databaseContext = ApplicationContext.Current.DatabaseContext;
             var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
 
