@@ -33,9 +33,15 @@ namespace UmbShop.Models.Stock
                 LogHelper.Info<UmbShopStockRepository>("BEGIN AddProductsToStock productId:" + productId + " variantId:" + variantId + " count:" + count);
                 for (int i = 1; i <= countInt; i++)
                 {
+                    var uniqueId = Guid.NewGuid().ToString();
+                    while (databaseContext.Database.ExecuteScalar<int>("SELECT COUNT(*) FROM " + UmbShopStock.TableName + " WHERE UniqueId = @0;", uniqueId) > 0)
+                    {
+                        uniqueId = Guid.NewGuid().ToString();
+                    }
+
                     UmbShopStock stock = new UmbShopStock
                     {
-                        UniqueId = Guid.NewGuid().ToString(),
+                        UniqueId = uniqueId,
                         ProductUniqueId = productUniqueId.ToString(),
                         VariantUniqueId = variantUniqueId.ToString(),
                         BasketUniqueId = ""
