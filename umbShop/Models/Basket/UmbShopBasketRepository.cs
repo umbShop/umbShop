@@ -35,7 +35,10 @@ namespace UmbShop.Models.Basket
                 {
                     UniqueId = uniqueId,
                     LastUsed = DateTime.Now,
-                    Status = 0
+                    Status = 0,
+                    ShippingDetails = "",
+                    InvoiceDetails = "",
+                    PaymentDetails = ""
                 };
 
                 databaseContext.Database.Insert(basket);
@@ -101,6 +104,56 @@ namespace UmbShop.Models.Basket
             UmbShopStock[] stockList = databaseContext.Database.Fetch<UmbShopStock>("SELECT * FROM " + UmbShopStock.TableName + " WHERE BasketUniqueId = @0;", basketUniqueId).ToArray();
 
             return stockList;
+        }
+
+        public UmbShopBasket UpdateBasketDetails(string basketId, string shipping, string invoice, string payment)
+        {
+            if (!KeepBasketAlive(basketId))
+            {
+                return null;
+            }
+
+            var databaseContext = ApplicationContext.Current.DatabaseContext;
+            var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
+
+            if (!db.TableExist(UmbShopBasket.TableName))
+            {
+                db.CreateTable<UmbShopBasket>(false);
+            }
+
+            Guid basketUniqueId = Guid.Empty;
+            Guid.TryParse(basketId, out basketUniqueId);
+
+            UmbShopBasket basketDetails = null;
+            try
+            {
+                LogHelper.Info<UmbShopBasketRepository>("BEGIN UpdateBasketDetails basketId:" + basketId + " shipping:" + shipping + " invoice:" + invoice + " payment:" + payment);
+
+                basketDetails = databaseContext.Database.Fetch<UmbShopBasket>("SELECT TOP 1 * FROM " + UmbShopBasket.TableName + " WHERE UniqueId = @0;", basketUniqueId).FirstOrDefault();
+
+                if (!shipping.IsNullOrWhiteSpace())
+                {
+                    basketDetails.ShippingDetails = shipping;
+                }
+                if (!invoice.IsNullOrWhiteSpace())
+                {
+                    basketDetails.InvoiceDetails = invoice;
+                }
+                if (!payment.IsNullOrWhiteSpace())
+                {
+                    basketDetails.PaymentDetails = payment;
+                }
+                databaseContext.Database.Update(basketDetails);
+
+                LogHelper.Info<UmbShopBasketRepository>("END UpdateBasketDetails basketId:" + basketId + " shipping:" + shipping + " invoice:" + invoice + " payment:" + payment);
+            }
+            catch (Exception exception)
+            {
+                LogHelper.Info<UmbShopBasketRepository>("ERROR UpdateBasketDetails " + exception.Message);
+                return null;
+            }
+
+            return basketDetails;
         }
 
         public bool AddProductsToBasket(string basketId, string productId, string variantId, string count)

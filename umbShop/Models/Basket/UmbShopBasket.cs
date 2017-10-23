@@ -38,6 +38,24 @@ namespace UmbShop.Models.Basket
         [JsonProperty("status")]
         public int Status { get; set; }
 
+        [Column("ShippingDetails")]
+        [NullSetting(NullSetting = NullSettings.Null)]
+        [SpecialDbType(SpecialDbTypes.NTEXT)]
+        [JsonProperty("shippingDetails")]
+        public string ShippingDetails { get; set; }
+
+        [Column("InvoiceDetails")]
+        [NullSetting(NullSetting = NullSettings.Null)]
+        [SpecialDbType(SpecialDbTypes.NTEXT)]
+        [JsonProperty("invoiceDetails")]
+        public string InvoiceDetails { get; set; }
+
+        [Column("PaymentDetails")]
+        [NullSetting(NullSetting = NullSettings.Null)]
+        [SpecialDbType(SpecialDbTypes.NTEXT)]
+        [JsonProperty("paymentDetails")]
+        public string PaymentDetails { get; set; }
+
         #endregion
 
     }
