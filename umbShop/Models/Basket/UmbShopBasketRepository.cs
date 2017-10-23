@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Configuration;
 using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Persistence;
@@ -205,12 +207,35 @@ namespace UmbShop.Models.Basket
                 db.CreateTable<UmbShopBasket>(false);
             }
 
-            UmbShopBasket[] baskets = null;
+            List<UmbShopBasket> basketsToDelete = new List<UmbShopBasket>();
             try
             {
                 LogHelper.Info<UmbShopBasketRepository>("BEGIN ClearUnusedBaskets");
-                //NOT FINISHED add minuts to web.config
-                baskets = databaseContext.Database.Fetch<UmbShopBasket>("SELECT * FROM " + UmbShopBasket.TableName + ";").ToArray();
+
+                double minutes = 30;
+                double.TryParse(WebConfigurationManager.AppSettings["UmbShop.ClearUnusedBaskets.Minutes"], out minutes);
+
+                UmbShopBasket[] baskets = databaseContext.Database.Fetch<UmbShopBasket>("SELECT * FROM " + UmbShopBasket.TableName + " WHERE Status = 0;").ToArray();
+                foreach (UmbShopBasket basket in baskets)
+                {
+                    if (basket.LastUsed < DateTime.Now.AddMinutes(-minutes))
+                    {
+                        basketsToDelete.Add(basket);
+                    }
+                }
+
+                foreach (UmbShopBasket basket in basketsToDelete)
+                {
+                    List<UmbShopStock> stockList = databaseContext.Database.Fetch<UmbShopStock>("SELECT * FROM " + UmbShopStock.TableName + " WHERE BasketUniqueId = @0;", basket.UniqueId);
+                    foreach (UmbShopStock stock in stockList)
+                    {
+                        stock.BasketUniqueId = "";
+                        databaseContext.Database.Update(stock);
+                    }
+
+                    databaseContext.Database.Delete<UmbShopBasket>(basket);
+                }
+
                 LogHelper.Info<UmbShopBasketRepository>("END ClearUnusedBaskets");
             }
             catch (Exception exception)
@@ -219,7 +244,7 @@ namespace UmbShop.Models.Basket
                 return null;
             }
 
-            return baskets;
+            return basketsToDelete.ToArray();
         }
 
     }
