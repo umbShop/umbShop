@@ -216,6 +216,7 @@
     <Compile Include="Controllers\Api\UmbShopProductController.cs" />
     <Compile Include="Controllers\Api\UmbShopStockController.cs" />
     <Compile Include="Controllers\BackOffice\UmbShopBackOfficeStockController.cs" />
+    <Compile Include="Controllers\BackOffice\UmbShopBackOfficeVariantController.cs" />
     <Compile Include="Models\Basket\UmbShopBasket.cs" />
     <Compile Include="Models\Basket\UmbShopBasketRepository.cs" />
     <Compile Include="Models\Product\UmbShopProduct.cs" />
@@ -223,6 +224,8 @@
     <Compile Include="Models\Product\UmbShopProductRepository.cs" />
     <Compile Include="Models\Stock\UmbShopStock.cs" />
     <Compile Include="Models\Stock\UmbShopStockRepository.cs" />
+    <Compile Include="Models\Variant\UmbShopVariant.cs" />
+    <Compile Include="Models\Variant\UmbShopVariantRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

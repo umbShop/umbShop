@@ -2,6 +2,7 @@
 using System;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using UmbShop.Models.Variant;
 
 namespace UmbShop.Models.Product
 {
@@ -22,6 +23,9 @@ namespace UmbShop.Models.Product
         [JsonProperty("url")]
         public string Url { get; private set; }
 
+        [JsonProperty("variants")]
+        public UmbShopVariant[] Variants { get; private set; }
+
         #endregion
 
         #region Constructors
@@ -31,6 +35,9 @@ namespace UmbShop.Models.Product
             UniqueId = content.GetKey();
             Name = content.Name;
             Url = content.Url;
+
+            UmbShopVariantRepository umbShopVariantRepository = new UmbShopVariantRepository();
+            Variants = umbShopVariantRepository.GetVariants(UniqueId.ToString());
         }
 
         #endregion
