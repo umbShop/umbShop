@@ -19,6 +19,14 @@ namespace UmbShop.Controllers.BackOffice
         }
 
         [HttpGet]
+        public object UpdateVariant(string productId, string variantId, string name)
+        {
+            UmbShopVariantRepository umbShopVariantRepository = new UmbShopVariantRepository();
+            bool approved = umbShopVariantRepository.UpdateVariant(productId, variantId, name);
+            return Request.CreateResponse(JsonMetaResponse.GetSuccess(approved));
+        }
+
+        [HttpGet]
         public object RemoveVariant(string productId, string variantId)
         {
             UmbShopVariantRepository umbShopVariantRepository = new UmbShopVariantRepository();

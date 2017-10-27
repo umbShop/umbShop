@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Persistence;
@@ -70,6 +71,41 @@ namespace UmbShop.Models.Variant
             catch (Exception exception)
             {
                 LogHelper.Info<UmbShopVariantRepository>("ERROR AddVariant " + exception.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool UpdateVariant(string productId, string variantId, string name)
+        {
+            var databaseContext = ApplicationContext.Current.DatabaseContext;
+            var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
+
+            if (!db.TableExist(UmbShopVariant.TableName))
+            {
+                db.CreateTable<UmbShopVariant>(false);
+            }
+
+            Guid productUniqueId = Guid.Empty;
+            Guid.TryParse(productId, out productUniqueId);
+
+            Guid variantUniqueId = Guid.Empty;
+            Guid.TryParse(variantId, out variantUniqueId);
+
+            try
+            {
+                LogHelper.Info<UmbShopVariantRepository>("BEGIN UpdateVariant productId:" + productId + " variantId:" + variantId + " name:" + name);
+
+                UmbShopVariant variant = databaseContext.Database.Fetch<UmbShopVariant>("SELECT TOP 1 * FROM " + UmbShopVariant.TableName + " WHERE UniqueId = @0 AND ProductUniqueId = @1;", variantUniqueId, productUniqueId).FirstOrDefault();
+                variant.Name = name;
+                databaseContext.Database.Update(variant);
+
+                LogHelper.Info<UmbShopVariantRepository>("END UpdateVariant productId:" + productId + " variantId:" + variantId + " name:" + name);
+            }
+            catch (Exception exception)
+            {
+                LogHelper.Info<UmbShopVariantRepository>("ERROR UpdateVariant " + exception.Message);
                 return false;
             }
 

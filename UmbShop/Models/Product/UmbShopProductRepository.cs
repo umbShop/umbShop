@@ -24,7 +24,7 @@ namespace UmbShop.Models.Product
             {
                 if (content.DocumentTypeAlias == WebConfigurationManager.AppSettings["UmbShop.DocType.Product"])
                 {
-                    UmbShopProduct product = UmbShopProduct.GetFromContent(content);
+                    UmbShopProduct product = UmbShopProduct.GetFromContentWithVariants(content);
                     return product;
                 }
             }
@@ -47,7 +47,7 @@ namespace UmbShop.Models.Product
             {
                 if (content.DocumentTypeAlias == WebConfigurationManager.AppSettings["UmbShop.DocType.ProductList"])
                 {
-                    UmbShopProduct[] productList = content.Children.Select(UmbShopProduct.GetFromContent).ToArray();
+                    UmbShopProduct[] productList = content.Children.Select(UmbShopProduct.GetFromContentWithoutVariants).ToArray();
                     return productList;
                 }
             }

@@ -30,25 +30,35 @@ namespace UmbShop.Models.Product
 
         #region Constructors
 
-        public UmbShopProduct(IPublishedContent content) {
+        public UmbShopProduct(IPublishedContent content, bool withVariants) {
             Id = content.Id;
             UniqueId = content.GetKey();
             Name = content.Name;
             Url = content.Url;
 
-            UmbShopVariantRepository umbShopVariantRepository = new UmbShopVariantRepository();
-            Variants = umbShopVariantRepository.GetVariants(UniqueId.ToString());
+            if (withVariants)
+            {
+                UmbShopVariantRepository umbShopVariantRepository = new UmbShopVariantRepository();
+                Variants = umbShopVariantRepository.GetVariants(UniqueId.ToString());
+            }
         }
 
         #endregion
 
         #region Statics
 
-        public static UmbShopProduct GetFromContent(IPublishedContent content)
+        public static UmbShopProduct GetFromContentWithVariants(IPublishedContent content)
         {
             if (content == null) return null;
 
-            return new UmbShopProduct(content);
+            return new UmbShopProduct(content, true);
+        }
+
+        public static UmbShopProduct GetFromContentWithoutVariants(IPublishedContent content)
+        {
+            if (content == null) return null;
+
+            return new UmbShopProduct(content, false);
         }
 
         #endregion
