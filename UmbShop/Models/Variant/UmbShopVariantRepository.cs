@@ -114,7 +114,42 @@ namespace UmbShop.Models.Variant
 
         public bool RemoveVariant(string productId, string variantId)
         {
-            //MISSING
+            var databaseContext = ApplicationContext.Current.DatabaseContext;
+            var db = new DatabaseSchemaHelper(databaseContext.Database, ApplicationContext.Current.ProfilingLogger.Logger, databaseContext.SqlSyntax);
+
+            if (!db.TableExist(UmbShopVariant.TableName))
+            {
+                db.CreateTable<UmbShopVariant>(false);
+            }
+
+            Guid productUniqueId = Guid.Empty;
+            Guid.TryParse(productId, out productUniqueId);
+
+            Guid variantUniqueId = Guid.Empty;
+            Guid.TryParse(variantId, out variantUniqueId);
+
+            try
+            {
+                LogHelper.Info<UmbShopVariantRepository>("BEGIN RemoveVariant productId:" + productId + " variantId:" + variantId);
+
+                int count = databaseContext.Database.ExecuteScalar<int>("SELECT COUNT(*) FROM " + UmbShopStock.TableName + " WHERE ProductUniqueId = @0 AND VariantUniqueId = @1;", productUniqueId, variantUniqueId);
+                if (count > 0)
+                {
+                    LogHelper.Info<UmbShopVariantRepository>("ERROR RemoveVariant variant is in use");
+                    return false;
+                }
+
+                UmbShopVariant variant = databaseContext.Database.Fetch<UmbShopVariant>("SELECT TOP 1 * FROM " + UmbShopVariant.TableName + " WHERE UniqueId = @0 AND ProductUniqueId = @1;", variantUniqueId, productUniqueId).FirstOrDefault();
+                databaseContext.Database.Delete<UmbShopVariant>(variant);
+
+                LogHelper.Info<UmbShopVariantRepository>("END RemoveVariant productId:" + productId + " variantId:" + variantId);
+            }
+            catch (Exception exception)
+            {
+                LogHelper.Info<UmbShopVariantRepository>("ERROR RemoveVariant " + exception.Message);
+                return false;
+            }
+
             return true;
         }
 
