@@ -2,6 +2,7 @@
 using Umbraco.Core;
 using Umbraco.Core.Logging;
 using Umbraco.Core.Persistence;
+using UmbShop.Models.Stock;
 
 namespace UmbShop.Models.Variant
 {
@@ -21,9 +22,16 @@ namespace UmbShop.Models.Variant
             Guid productUniqueId = Guid.Empty;
             Guid.TryParse(productId, out productUniqueId);
 
-            UmbShopVariant[] stockList = databaseContext.Database.Fetch<UmbShopVariant>("SELECT * FROM " + UmbShopVariant.TableName + " WHERE ProductUniqueId = @0;", productUniqueId).ToArray();
+            UmbShopVariant[] variants = databaseContext.Database.Fetch<UmbShopVariant>("SELECT * FROM " + UmbShopVariant.TableName + " WHERE ProductUniqueId = @0;", productUniqueId).ToArray();
 
-            return stockList;
+            UmbShopStockRepository umbShopStockRepository = new UmbShopStockRepository();
+            foreach (UmbShopVariant variant in variants)
+            {
+                var count = umbShopStockRepository.CountProductsInStock(variant.ProductUniqueId, variant.UniqueId);
+                variant.Count = count;
+            }
+
+            return variants;
         }
 
         public bool AddVariant(string productId, string name)
