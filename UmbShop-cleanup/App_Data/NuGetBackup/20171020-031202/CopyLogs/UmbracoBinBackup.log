@@ -1,34 +1,0 @@
-
--------------------------------------------------------------------------------
-   ROBOCOPY     ::     Robust File Copy for Windows                              
--------------------------------------------------------------------------------
-
-  Started : 20. oktober 2017 03:12:02
-   Source : C:\projects\umbShop\umbShop\bin\
-     Dest : C:\projects\umbShop\umbShop\App_Data\NuGetBackup\20171020-031202\bin\
-
-    Files : *.*
-	    
-  Options : *.* /S /E /DCOPY:DA /COPY:DAT /R:1000000 /W:30 
-
-------------------------------------------------------------------------------
-
-	                   0	C:\projects\umbShop\umbShop\bin\
-	  New Dir          2	C:\projects\umbShop\umbShop\bin\Debug\
-	    New File  		    4096	umbShop.dll  0%  100%  
-	    New File  		    7680	umbShop.pdb  0%  100%  
-	  New Dir          0	C:\projects\umbShop\umbShop\bin\Release\
-
-------------------------------------------------------------------------------
-
-               Total    Copied   Skipped  Mismatch    FAILED    Extras
-    Dirs :         3         2         1         0         0         0
-   Files :         2         2         0         0         0         0
-   Bytes :    11.5 k    11.5 k         0         0         0         0
-   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
-
-
-   Speed :              841142 Bytes/sec.
-   Speed :              48.130 MegaBytes/min.
-   Ended : 20. oktober 2017 03:12:02
-
